@@ -7,6 +7,7 @@ import {
   LogOut,
   ChevronRight
 } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface SidebarProps {
   activeSection: string;
@@ -84,14 +85,17 @@ export const Sidebar = ({ activeSection, onSectionClick }: SidebarProps) => {
   return (
     <nav className="w-64 shrink-0 border-r border-border bg-[hsl(var(--sidebar-bg))] h-screen sticky top-0 overflow-y-auto scrollbar-thin hidden lg:block">
       <div className="p-6 border-b border-border">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-            <span className="text-white font-bold text-sm">EP</span>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+              <span className="text-white font-bold text-sm">EP</span>
+            </div>
+            <div>
+              <h1 className="font-semibold text-foreground">EdfaPay SDK</h1>
+              <span className="text-xs text-muted-foreground">v1.0.5</span>
+            </div>
           </div>
-          <div>
-            <h1 className="font-semibold text-foreground">EdfaPay SDK</h1>
-            <span className="text-xs text-muted-foreground">v1.0.5</span>
-          </div>
+          <ThemeToggle />
         </div>
       </div>
 
