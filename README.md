@@ -1,73 +1,81 @@
-# Welcome to your Lovable project
+# EdfaPay Documentation
 
-## Project info
+## Project Overview
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+This project is an integration documentation site for the EdfaPayPlugin SDK, built with React, Vite, Tailwind CSS, and TypeScript.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- **SDK Documentation**: Complete API reference for all EdfaPayPlugin functions
+- **Contact Form**: Public contact form with database storage and email notifications
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## Contact Form Setup
 
-Changes made via Lovable will be committed automatically to this repo.
+The contact form saves submissions to the database and sends email notifications via Resend.
 
-**Use your preferred IDE**
+### Prerequisites
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+1. **Resend Account**: Create an account at [resend.com](https://resend.com)
+2. **Verified Domain**: Verify your sending domain in Resend dashboard
+3. **API Key**: Generate an API key from Resend dashboard
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Environment Variables
 
-Follow these steps:
+Add the following secret to your project:
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+| Variable | Description |
+|----------|-------------|
+| `RESEND_API_KEY` | Your Resend API key for sending emails |
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Database Schema
 
-# Step 3: Install the necessary dependencies.
-npm i
+The `contact_submissions` table stores all form submissions:
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```sql
+CREATE TABLE public.contact_submissions (
+  id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  message TEXT NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+);
 ```
 
-**Edit a file directly in GitHub**
+### Security (RLS Policies)
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- **Public Insert**: Anyone can submit the contact form
+- **Authenticated Select**: Only authenticated users can view submissions
 
-**Use GitHub Codespaces**
+---
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Technology Stack
 
-## What technologies are used for this project?
+- **Frontend**: React 18, TypeScript, Vite
+- **Styling**: Tailwind CSS, shadcn/ui
+- **Backend**: Lovable Cloud (Database, Edge Functions)
+- **Email**: Resend
 
-This project is built with:
+## Development
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```sh
+# Install dependencies
+npm install
 
-## How can I deploy this project?
+# Start development server
+npm run dev
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+# Build for production
+npm run build
+```
 
-## Can I connect a custom domain to my Lovable project?
+## Deployment
 
-Yes, you can!
+Deploy via Lovable by clicking **Share → Publish**.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+---
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## License
+
+Private project.
